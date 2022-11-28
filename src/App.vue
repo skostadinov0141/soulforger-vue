@@ -7,7 +7,7 @@ let id:number
 export default defineComponent({
   data(){
     return {
-      navOpen:false,
+      navOpen:true,
       mobile: true,
       routes:[
         {name:'Start', route:'/', selected:false, id:id++},
@@ -53,161 +53,88 @@ export default defineComponent({
 </script>
 
 <template>
-  <header>
-    <nav class="nav-buttons-container">
-      <div class="mobile-nav"
-      :class="{ 'mobile-nav-open' : navOpen && mobile}">
-        <ul class="nav-button-mobile-list">
-          <img 
-          src="./assets/images/mobile_menu_close_button.png" 
-          class="mobile-nav-close-buttton"
-          v-if="mobile"
-          @click="navOpen = false">
-          <li v-for="e in routes">
-            <router-link :to="e.route"
-            :key="e.id"
-            class="nav-button-mobile"
-            :class="{ 'nav-button-mobile-selected' : e.selected === true }">
-              {{e.name}}
-            </router-link>
-          </li>
-        </ul>
-      </div>
-      <div class="nav-buttons-div">
-        <img 
-        src="./assets/images/mobile_menu_button.png" 
-        class="mobile-nav-buttton"
-        v-if="mobile"
-        @click="navOpen = true">
-        <img src="./assets/images/soulforger_logo_100p.png" alt="logo">
-        <ul v-if="!mobile">
-          <li v-for="e in routes">
-            <router-link :to="e.route"
-            :key="e.id"
-            class="nav-button"
-            :class="{ 'nav-button-selected' : e.selected === true }">
-              {{e.name}}
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <header class="navigation-container">
+    <div class="nav-bar">
+      <img src="./assets/images/mobile_menu_button.png" alt="open mobile nav" class="logo-image mobile-nav-menu-image" v-if="mobile">
+      <img src="./assets/images/soulforger_logo_100p.png" alt="soulforger logo" class="logo-image">
+      <ul class="nav-buttons-list-dektop" v-if="!mobile">
+        <li 
+        v-for="e in routes"
+        :key="e.id"
+        class="nav-button-element-desktop">
+          <router-link :to="e.route" class="nav-button-link-dekstop">
+            {{e.name}}
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-menu-mobile" v-if="mobile">
+      <ul class="nav-buttons-list-mobile">
+        <li 
+        v-for="e in routes"
+        :key="e.id"
+        class="nav-button-element-mobile">
+          <router-link :to="e.route" class="nav-button-link-mobile">
+            {{e.name}}
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </header>
-  <body>
-    <router-view>
-
-    </router-view>
-  </body>
 </template>
 
 <style scoped>
+.navigation-container{
+  z-index: 1000;
+  position: fixed;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
 
-  .mobile-nav-close-buttton{
-    align-self: flex-end;
-    height: 8vh;
-    width: 8vh;
-  }
+.nav-bar{
+  display: flex;
+  backdrop-filter: blur(50px);
+  height: 8vh;
+}
 
-  .nav-button-mobile{
-    width: 100%;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    color: #CACECA;
-    font-family: Roboto;
-    padding: 0 2vw;
-    background-image: linear-gradient(
-      180deg, 
-      rgba(0,0,0,0) 50%, 
-      rgba(255,255,255,0.05) 50%
-    );
-    background-size: 100% 200%;
-    transition: 300ms;
-    line-height: 8vh;
-  }
+.logo-image{
+  width: 8vh;
+  height: 8vh;
+  padding: 8px;
+}
 
-  .nav-button-mobile-selected{
-    border-right: solid 4px;
-    border-color: #8D54A0;
-  }
+.mobile-nav-menu-image{
+  padding: 13px 8px 8px 8px;
+}
 
-  .nav-button-mobile-list{
-    display: flex;
-    flex-direction: column;
-  }
+.nav-buttons-list-dektop{
+  display: flex;
+  list-style: none;
+  margin-left: auto;
+}
 
-  .mobile-nav{
-    transition: 300ms;
-    z-index: 1000;
-    position: fixed;
-    min-height: 100vh;
-    min-width: 50vw;
-    background-color: #0F1F2E;
-    left: -60vw;
-  }
+.nav-button-element-desktop{
+  display: flex;
+  align-items: stretch;
+}
 
-  .mobile-nav-open{
-    left: 0;
-  }
+.nav-button-link-dekstop{
+  padding: 0 2vw 0 2vw;
+  font-family: Roboto;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #CACECA;
+  font-weight: 500;
+  font-size: 14px;
+  background-image: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(255, 255, 255, 0.05) 50%);
+  background-size: 100% 200%;
+  transition: 300ms ease;
+  line-height: 8vh;
+}
 
-  .nav-buttons-div{
-    position: fixed;
-    display: flex;
-    min-width: 100vw;
-    height: 8vh;
-  }
-
-  body{
-    min-width: 100vw;
-    min-height: 100vh;
-  }
-
-  .nav-buttons-container{
-    z-index: 999;
-  }
-  .nav-buttons-container img{
-    padding: 10px;
-  }
-  
-  .nav-buttons-container ul{
-    margin-left: auto;
-    list-style: none;
-    display: flex;
-    align-items: stretch;
-  }
-
-  li{
-    display: flex;
-    align-items: stretch;
-    /* border-top: solid 4px;
-    border-color: #0000; */
-  }
-
-  .nav-button{
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    color: #CACECA;
-    font-family: Roboto;
-    padding: 0 2vw;
-    background-image: linear-gradient(
-      180deg, 
-      rgba(0,0,0,0) 50%, 
-      rgba(255,255,255,0.05) 50%
-    );
-    background-size: 100% 200%;
-    transition: 300ms;
-    line-height: 8vh;
-  }
-
-  .nav-button-selected{
-    border-top: solid 4px;
-    border-color: #8D54A0;
-  }
-
-  .nav-button:hover{
-    background-position: 0 -100%;
-    color: #DFE2DF;
-  }
+.nav-button-link-dekstop:hover{
+  background-position: 0 -100%;
+}
 
 </style>
