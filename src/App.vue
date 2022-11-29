@@ -34,7 +34,6 @@ export default defineComponent({
           this.routes[index].selected = false
         }
       }
-      console.log(this.routes)
     },
   },
   created(){
@@ -54,36 +53,149 @@ export default defineComponent({
 
 <template>
   <header class="navigation-container">
-    <div class="nav-bar">
-      <img src="./assets/images/mobile_menu_button.png" alt="open mobile nav" class="logo-image mobile-nav-menu-image" v-if="mobile">
+    <div class="nav-bar"
+    :class="{'nav-bar-mobile-menu-open' : navOpen && mobile}">
+      <img src="./assets/images/mobile_menu_button.png" 
+      alt="open mobile nav" 
+      class="logo-image mobile-nav-menu-image" 
+      v-if="mobile && !navOpen"
+      @click="navOpen = !navOpen">
+      <img src="./assets/images/mobile_menu_close_button.png" 
+      alt="open mobile nav" 
+      class="logo-image mobile-nav-menu-image" 
+      v-else-if="mobile && navOpen"
+      @click="navOpen = !navOpen">
       <img src="./assets/images/soulforger_logo_100p.png" alt="soulforger logo" class="logo-image">
-      <ul class="nav-buttons-list-dektop" v-if="!mobile">
+      <ul class="nav-buttons-list-desktop" v-show="!mobile">
         <li 
         v-for="e in routes"
-        :key="e.id"
         class="nav-button-element-desktop">
-          <router-link :to="e.route" class="nav-button-link-dekstop">
+          <router-link :to="e.route" class="nav-button-link-dekstop" :class="{'nav-button-link-dekstop-selected' : e.selected}">
             {{e.name}}
           </router-link>
         </li>
       </ul>
     </div>
-    <div class="nav-menu-mobile" v-if="mobile">
-      <ul class="nav-buttons-list-mobile">
-        <li 
-        v-for="e in routes"
-        :key="e.id"
-        class="nav-button-element-mobile">
-          <router-link :to="e.route" class="nav-button-link-mobile">
-            {{e.name}}
-          </router-link>
-        </li>
-      </ul>
-    </div>
+    <Transition name="nav-menu-mobile">
+      <div 
+      class="nav-menu-mobile"
+      v-show="navOpen && mobile"
+      :class="{'open':navOpen}">
+        <Transition name="nav-buttons-list-mobile">
+          <ul class="nav-buttons-list-mobile"
+          :class="{'nav-buttons-list-mobile-open' : navOpen}"
+          v-show="navOpen && mobile">
+            <li 
+            v-for="e in routes"
+            class="nav-button-element-mobile">
+              <router-link :to="e.route" class="nav-button-link-mobile"
+              :class="{'nav-button-link-mobile-selected' : e.selected}">
+                {{e.name}}
+              </router-link>
+            </li>
+          </ul>
+        </Transition>
+      </div>
+    </Transition>
   </header>
+  <main>
+    <router-view>
+      
+    </router-view>
+  </main>
 </template>
 
 <style scoped>
+/* MOBILE STYLES */
+
+.nav-bar-mobile-menu-open{
+  background-color: #0A141F;
+}
+
+.nav-menu-mobile{
+  width: 100vw;
+  height: 92vh;
+  background-color: rgba(0,0,0,0.2);
+  backdrop-filter: blur(50px);
+}
+
+.nav-menu-mobile-leave-active,
+.nav-menu-mobile-enter-active{
+  transition: all 150ms ease;
+}
+
+.nav-menu-mobile-leave-from,
+.nav-menu-mobile-enter-to{
+  width: 100vw;
+  height: 92vh;
+  background-color: rgba(0,0,0,0.2);
+  backdrop-filter: blur(50px);
+}
+
+.nav-menu-mobile-leave-to,
+.nav-menu-mobile-enter-from{
+  width: 100vw;
+  height: 92vh;
+  background-color: rgba(0,0,0,0);
+  backdrop-filter: blur(0px);
+}
+
+.nav-buttons-list-mobile{
+  width: 45%;
+  height: 100%;
+  background-color: #0F1E2E;
+  left: 0;
+}
+
+.nav-buttons-list-mobile-enter-to,
+.nav-buttons-list-mobile-leave-from{
+  width: 45%;
+  height: 100%;
+  background-color: #0F1E2E;
+  left: 0;
+}
+
+.nav-buttons-list-mobile-enter-from,
+.nav-buttons-list-mobile-leave-to{
+  width: 45%;
+  height: 100%;
+  background-color: #0F1E2E;
+  left: -100vw;
+}
+
+.nav-buttons-list-mobile-enter-active{
+  transition: all 150ms ease;
+  transition-delay: 150ms;
+}
+.nav-buttons-list-mobile-leave-active{
+  transition: all 150ms ease;
+  transition-delay: 0ms;
+}
+
+.nav-button-element-mobile{
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.nav-button-link-mobile{
+  padding: 0 2vw 0 2vw;
+  font-family: Roboto;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #CACECA;
+  font-weight: 500;
+  font-size: 14px;
+  transition: 300ms ease;
+  line-height: 8vh;
+}
+
+.nav-button-link-mobile-selected{
+  border-right: solid 4px #8D54A0;
+  transition: 300ms ease;
+}
+
+/* DESKTOP STYLES */
 .navigation-container{
   z-index: 1000;
   position: fixed;
@@ -96,6 +208,7 @@ export default defineComponent({
   display: flex;
   backdrop-filter: blur(50px);
   height: 8vh;
+  transition: 150ms ease;
 }
 
 .logo-image{
@@ -108,7 +221,7 @@ export default defineComponent({
   padding: 13px 8px 8px 8px;
 }
 
-.nav-buttons-list-dektop{
+.nav-buttons-list-desktop{
   display: flex;
   list-style: none;
   margin-left: auto;
@@ -135,6 +248,10 @@ export default defineComponent({
 
 .nav-button-link-dekstop:hover{
   background-position: 0 -100%;
+}
+
+.nav-button-link-dekstop-selected{
+  border-top: solid 4px #8D54A0;
 }
 
 </style>
