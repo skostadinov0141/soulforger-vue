@@ -22,14 +22,19 @@
         margin-left: auto;
     }
 
+    h1{
+        font-size: 40px;
+        color: #CACECA;
+    }
+
     @media only screen and (max-width: 1024px){
         .hero-alignment-container{
-        display: flex;
-        flex-direction: column;
-        width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
 </style>
