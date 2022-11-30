@@ -21,10 +21,10 @@ export default defineComponent({
         <HeroSection/>
     </section>
     <section class="goals-container">
-        <HeroSection/>
+        
     </section>
     <section class="account-application-container">
-        <HeroSection/>
+        
     </section>
 </div>
 </template>
@@ -34,16 +34,53 @@ export default defineComponent({
     .focus-padding{
         display: flex;
         flex-direction: column;
-        padding-left: 16vw;
-        padding-right: 16vw;
     }
 
     .hero-container{
+        padding-left: 16vw;
+        padding-right: 16vw;
         display: flex;
         align-items: center;
         max-width: 100vw;
         min-height: 100vh;
         z-index: 0;
+        background-image:
+        linear-gradient(180deg, rgba(0,0,0,0.3) 0%, 
+        rgba(0,0,0,0.3) 40%, 
+        rgba(10, 20, 31,1) 100%),
+        url(../assets/images/landing_page_background.jpg);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: cover;
+    }
+
+    .goals-container{
+        padding-left: 16vw;
+        padding-right: 16vw;
+        display: flex;
+        align-items: center;
+        max-width: 100vw;
+        min-height: 100vh;
+    }
+
+    @media only screen and (max-width: 1024px){
+        .hero-container{
+            padding-left: 8vw;
+            padding-right: 8vw;
+            display: flex;
+            align-items: center;
+            max-width: 100vw;
+            min-height: 100vh;
+            z-index: 0;
+            background-image:
+            linear-gradient(180deg, rgba(0,0,0,0.3) 0%, 
+            rgba(0,0,0,0.3) 40%, 
+            rgba(10, 20, 31,1) 100%),
+            url(../assets/images/landing_page_background.jpg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+        }
     }
 
 </style>

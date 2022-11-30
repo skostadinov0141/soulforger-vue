@@ -7,7 +7,7 @@ let id:number
 export default defineComponent({
   data(){
     return {
-      navOpen:true,
+      navOpen:false,
       mobile: true,
       routes:[
         {name:'Start', route:'/', selected:false, id:id++},
@@ -206,7 +206,8 @@ export default defineComponent({
 
 .nav-bar{
   display: flex;
-  backdrop-filter: blur(50px);
+  background-color: rgba(15, 30, 46, 1);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.268);
   height: 8vh;
   transition: 150ms ease;
 }
