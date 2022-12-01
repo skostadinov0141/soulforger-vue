@@ -103,6 +103,9 @@ export default defineComponent({
       
     </router-view>
   </main>
+  <footer>
+    
+  </footer>
 </template>
 
 <style scoped>

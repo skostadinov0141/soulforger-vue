@@ -2,13 +2,17 @@
 
 import { defineComponent } from "vue";
 import HeroSection from "../components/start_page/hero_section.vue"
+import GoalsSection from "../components/start_page/goals_section.vue"
+import Footer from "../components/footer.vue"
 
 export default defineComponent({
     data(){
 
     },
     components:{
-        HeroSection
+        HeroSection,
+        GoalsSection,
+        Footer
     }
 })
 
@@ -17,15 +21,13 @@ export default defineComponent({
 
 <template>
 <div class="focus-padding">
-    <section class="hero-container">
+    <section class="hero-container" id="#hero">
         <HeroSection/>
     </section>
-    <section class="goals-container">
-        
+    <section class="goals-container" id="#goals">
+        <GoalsSection/>
     </section>
-    <section class="account-application-container">
-        
-    </section>
+    <Footer/>
 </div>
 </template>
 
@@ -57,10 +59,13 @@ export default defineComponent({
     .goals-container{
         padding-left: 16vw;
         padding-right: 16vw;
+        padding-top: 16vh;
+        padding-bottom: 16vh;
         display: flex;
-        align-items: center;
+        align-items: stretch;
         max-width: 100vw;
         min-height: 100vh;
+        justify-items: stretch;
     }
 
     @media only screen and (max-width: 1024px){
@@ -81,6 +86,19 @@ export default defineComponent({
             background-position: 50% 50%;
             background-size: cover;
         }
+
+        .goals-container{
+            padding-left: 8vw;
+            padding-right: 8vw;
+            padding-top: 16vh;
+            padding-bottom: 16vh;
+            display: flex;
+            align-items: stretch;
+            max-width: 100vw;
+            min-height: 100vh;
+            justify-items: stretch;
+        }
+
     }
 
 </style>
