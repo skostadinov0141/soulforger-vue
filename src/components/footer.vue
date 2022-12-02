@@ -14,7 +14,7 @@ import { defineComponent } from 'vue';
         <dif class="footer-bg-l2">
             <div class="footer-content">
                 <div class="social-network-link-container">
-                    <img src="../assets/images/2021 Twitter logo - white.png" alt="twitter">
+                    <img src="../assets/images/2021_Twitter_logo_-_white.png" alt="twitter">
                     <div style="width: 8px;"></div>
                     <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/soulforger_DE">@soulforger_DE</a>
                 </div>
