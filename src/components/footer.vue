@@ -13,7 +13,17 @@ import { defineComponent } from 'vue';
     <div class="footer-bg-l1">
         <dif class="footer-bg-l2">
             <div class="footer-content">
-
+                <div class="social-network-link-container">
+                    <img src="../assets/images/2021 Twitter logo - white.png" alt="twitter">
+                    <div style="width: 8px;"></div>
+                    <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/soulforger_DE">@soulforger_DE</a>
+                </div>
+                <div style="height: 16px;"></div>
+                <div class="social-network-link-container1">
+                    <img src="../assets/images/Instagram_Glyph_White.png" alt="twitter">
+                    <div style="width: 14px;"></div>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/project.soulforger/">@project.soulforger</a>
+                </div>
             </div>
         </dif>
     </div>
@@ -22,6 +32,33 @@ import { defineComponent } from 'vue';
 
 
 <style scoped>
+
+    a{
+        font-family: Roboto;
+        font-weight: 500;
+        font-size: 16px;
+        text-decoration: none;
+        color: #CACECA;
+    }
+
+    img{
+        height: 100%;
+        padding: 5px;
+    }
+
+    .social-network-link-container{
+        margin-top: auto;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .social-network-link-container1{
+        margin-bottom: auto;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
 
     .base-footer{
         display: flex;
@@ -47,6 +84,9 @@ import { defineComponent } from 'vue';
     }
 
     .footer-content{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
         top: 35%;
         height: 65%;
         padding-left: 8vw;
