@@ -11,7 +11,7 @@ export default defineComponent({
       mobile: true,
       routes:[
         {name:'Start', route:'/', selected:false, id:id++},
-        {name:'Bewerben', route:'/applications', selected:false, id:id++},
+        {name:'Profil', route:'/account', selected:false, id:id++},
         {name:'Impressum', route:'/impressum', selected:false, id:id++},
       ]
     }
