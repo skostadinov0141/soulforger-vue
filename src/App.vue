@@ -120,11 +120,14 @@ export default defineComponent({
   width: 100vw;
   height: 92vh;
   background-color: rgba(0,0,0,0.2);
-  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
 }
 
 .nav-menu-mobile-leave-active,
 .nav-menu-mobile-enter-active{
+  -webkit-transition: all 150ms ease;
+  -o-transition: all 150ms ease;
   transition: all 150ms ease;
 }
 
@@ -133,7 +136,8 @@ export default defineComponent({
   width: 100vw;
   height: 92vh;
   background-color: rgba(0,0,0,0.2);
-  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
 }
 
 .nav-menu-mobile-leave-to,
@@ -141,7 +145,8 @@ export default defineComponent({
   width: 100vw;
   height: 92vh;
   background-color: rgba(0,0,0,0);
-  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
 }
 
 .nav-buttons-list-mobile{
@@ -168,18 +173,33 @@ export default defineComponent({
 }
 
 .nav-buttons-list-mobile-enter-active{
+  -webkit-transition: all 150ms ease;
+  -o-transition: all 150ms ease;
   transition: all 150ms ease;
-  transition-delay: 150ms;
+  -webkit-transition-delay: 150ms;
+       -o-transition-delay: 150ms;
+          transition-delay: 150ms;
 }
 .nav-buttons-list-mobile-leave-active{
+  -webkit-transition: all 150ms ease;
+  -o-transition: all 150ms ease;
   transition: all 150ms ease;
-  transition-delay: 0ms;
+  -webkit-transition-delay: 0ms;
+       -o-transition-delay: 0ms;
+          transition-delay: 0ms;
 }
 
 .nav-button-element-mobile{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: stretch;
-  flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .nav-button-link-mobile{
@@ -190,12 +210,16 @@ export default defineComponent({
   color: #CACECA;
   font-weight: 500;
   font-size: 14px;
+  -webkit-transition: 300ms ease;
+  -o-transition: 300ms ease;
   transition: 300ms ease;
   line-height: 8vh;
 }
 
 .nav-button-link-mobile-selected{
   border-right: solid 4px #8D54A0;
+  -webkit-transition: 300ms ease;
+  -o-transition: 300ms ease;
   transition: 300ms ease;
 }
 
@@ -204,15 +228,25 @@ export default defineComponent({
   z-index: 1000;
   position: fixed;
   min-width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .nav-bar{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   background-color: rgba(15, 30, 46, 1);
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.268);
+  -webkit-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.268);
+          box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.268);
   height: 8vh;
+  -webkit-transition: 150ms ease;
+  -o-transition: 150ms ease;
   transition: 150ms ease;
 }
 
@@ -227,14 +261,20 @@ export default defineComponent({
 }
 
 .nav-buttons-list-desktop{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   list-style: none;
   margin-left: auto;
 }
 
 .nav-button-element-desktop{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: stretch;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
 .nav-button-link-dekstop{
@@ -245,8 +285,12 @@ export default defineComponent({
   color: #CACECA;
   font-weight: 500;
   font-size: 14px;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(0,0,0,0)), color-stop(50%, rgba(255, 255, 255, 0.05)));
+  background-image: -o-linear-gradient(top, rgba(0,0,0,0) 50%, rgba(255, 255, 255, 0.05) 50%);
   background-image: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(255, 255, 255, 0.05) 50%);
   background-size: 100% 200%;
+  -webkit-transition: 300ms ease;
+  -o-transition: 300ms ease;
   transition: 300ms ease;
   line-height: 8vh;
 }

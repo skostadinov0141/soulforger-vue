@@ -49,44 +49,69 @@ import { defineComponent } from 'vue';
     .social-network-link-container{
         margin-top: auto;
         height: 40px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .social-network-link-container1{
         margin-bottom: auto;
         height: 40px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .base-footer{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         min-width: 100%;
         min-height: 30vh;
-        align-items: stretch;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
     }
 
     .footer-bg-l1{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: stretch;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
         min-height: 100%;
         min-width: 100%;
-        clip-path: polygon(0 0, 100% 34%, 100% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0 0, 100% 34%, 100% 100%, 0% 100%);
+                clip-path: polygon(0 0, 100% 34%, 100% 100%, 0% 100%);
         background-color: rgb(25, 50, 77, 0.2);
     }
 
     .footer-bg-l2{
         min-height: 100%;
         min-width: 100%;
-        clip-path: polygon(0 30%, 100% 0, 100% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0 30%, 100% 0, 100% 100%, 0% 100%);
+                clip-path: polygon(0 30%, 100% 0, 100% 100%, 0% 100%);
         background-color: rgb(60, 120, 185, 0.1);
     }
 
     .footer-content{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
         top: 35%;
         height: 65%;
         padding-left: 8vw;

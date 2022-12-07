@@ -34,18 +34,37 @@ export default defineComponent({
 
 <style scoped>
     .focus-padding{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
 
     .hero-container{
         padding-left: 16vw;
         padding-right: 16vw;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         max-width: 100vw;
         min-height: 100vh;
         z-index: 0;
+        background-image:
+        -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.3)), 
+        color-stop(40%, rgba(0,0,0,0.3)), 
+        to(rgba(10, 20, 31,1))),
+        url(../assets/images/landing_page_background.jpg);
+        background-image:
+        -o-linear-gradient(top, rgba(0,0,0,0.3) 0%, 
+        rgba(0,0,0,0.3) 40%, 
+        rgba(10, 20, 31,1) 100%),
+        url(../assets/images/landing_page_background.jpg);
         background-image:
         linear-gradient(180deg, rgba(0,0,0,0.3) 0%, 
         rgba(0,0,0,0.3) 40%, 
@@ -61,8 +80,12 @@ export default defineComponent({
         padding-right: 16vw;
         padding-top: 16vh;
         padding-bottom: 16vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: stretch;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
         max-width: 100vw;
         min-height: 100vh;
         justify-items: stretch;
@@ -72,11 +95,25 @@ export default defineComponent({
         .hero-container{
             padding-left: 8vw;
             padding-right: 8vw;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            align-items: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             max-width: 100vw;
             min-height: 100vh;
             z-index: 0;
+            background-image:
+            -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.3)), 
+            color-stop(40%, rgba(0,0,0,0.3)), 
+            to(rgba(10, 20, 31,1))),
+            url(../assets/images/landing_page_background.jpg);
+            background-image:
+            -o-linear-gradient(top, rgba(0,0,0,0.3) 0%, 
+            rgba(0,0,0,0.3) 40%, 
+            rgba(10, 20, 31,1) 100%),
+            url(../assets/images/landing_page_background.jpg);
             background-image:
             linear-gradient(180deg, rgba(0,0,0,0.3) 0%, 
             rgba(0,0,0,0.3) 40%, 
@@ -92,8 +129,12 @@ export default defineComponent({
             padding-right: 8vw;
             padding-top: 16vh;
             padding-bottom: 16vh;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            align-items: stretch;
+            -webkit-box-align: stretch;
+                -ms-flex-align: stretch;
+                    align-items: stretch;
             max-width: 100vw;
             min-height: 100vh;
             justify-items: stretch;

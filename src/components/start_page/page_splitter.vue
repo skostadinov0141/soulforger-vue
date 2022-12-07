@@ -19,12 +19,18 @@
     .page-splitter{
         height: 50px;
         width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .splitter-line{
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
         height: 1px;
         background-color: rgb(147, 182, 220, 0.10);
     }

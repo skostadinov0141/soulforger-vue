@@ -47,6 +47,12 @@ import { defineComponent } from 'vue';
     .impressum-container{
         padding: 16vh 8vw;
         background-image: 
+        -webkit-gradient(linear, left top, right top, color-stop(100%, rgba(0,0,0,0.5)), color-stop(0%, rgba(0,0,0,0.5))),
+        url("../assets/images/impressum_background.jpg");
+        background-image: 
+        -o-linear-gradient(left, rgba(0,0,0,0.5) 100%, rgba(0,0,0,0.5) 0%),
+        url("../assets/images/impressum_background.jpg");
+        background-image: 
         linear-gradient(90deg, rgba(0,0,0,0.5) 100%, rgba(0,0,0,0.5) 0%),
         url("../assets/images/impressum_background.jpg");
         background-size: cover;
@@ -62,13 +68,15 @@ import { defineComponent } from 'vue';
         border: solid 1px rgba(147, 182, 220, 0.10);
         border-radius: 5px;
         background-color: rgba(15, 30, 46, 0.8);
-        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+                backdrop-filter: blur(50px);
         padding: 16px;
         font-family: Roboto;
         font-size: 16px;
         font-weight: 400;
         color: #CACECA;
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
     }
 
     strong{

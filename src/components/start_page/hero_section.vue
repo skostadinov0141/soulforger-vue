@@ -17,8 +17,13 @@
 <style scoped>
 
     .hero-alignment-container{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         width: 550px;
         margin-left: auto;
     }
@@ -44,15 +49,22 @@
 
     @media only screen and (max-width: 1024px){
         .hero-alignment-container{
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
             margin-left: auto;
             margin-right: auto;
             padding: 10px;
             border-radius: 5px;
-            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+                    backdrop-filter: blur(40px);
             border: solid 1px rgba(147, 182, 220, 0.10);
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+                    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
         }
 
         h1{

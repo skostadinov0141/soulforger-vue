@@ -5,7 +5,6 @@ import axios from 'axios';
 
     export default defineComponent({
         async mounted(){
-            this.$cookies.set('apiToken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzdhMjRjZTAwNjZhZjdhYTU0ODMxNDEiLCJleHAiOjE2NzA0Mzg0NDAsInByaXZfbGV2ZWwiOjZ9.liMQ6zcZEA6yf31qcWLREF070X8yDtCWBOr3yLz6yxc')
             if(this.$cookies.get('apiToken') === null){
                 this.$router.push('/account/login');
             }else{
@@ -15,7 +14,7 @@ import axios from 'axios';
                         {
                             headers:{
                                 accept:'application/json',
-                                Authorization:'Bearer ' + this.$cookies.get('apiToken')
+                                Authorization: this.$cookies.get('apiToken')
                             }
                         }
                     )

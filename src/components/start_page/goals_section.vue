@@ -82,25 +82,41 @@ export default defineComponent({
 <style scoped>
 
     .goals-inner-container{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
         width: 100%;
         min-height: 100%;
     }
 
     .goal-cards-container{
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: stretch;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
         padding-top: 8px;
     }
 
     .goal-card{
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
         background-color: rgba(15, 30, 46, 1);
         border-radius: 5px;
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
         border: solid 1px rgba(147, 182, 220, 0.10);
         padding: 16px;
     }
@@ -130,10 +146,19 @@ export default defineComponent({
 
     @media only screen and (max-width: 1200px){
         .goal-cards-container{
-            flex: 1;
+            -webkit-box-flex: 1;
+                -ms-flex: 1;
+                    flex: 1;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
-            align-items: stretch;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+            -webkit-box-align: stretch;
+                -ms-flex-align: stretch;
+                    align-items: stretch;
             padding-top: 8px;
         }
     }
