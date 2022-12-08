@@ -1,54 +1,53 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+<script setup lang="ts">
+import { onMounted, onUnmounted, ref, watch } from 'vue';
+import type { Ref } from 'vue';
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 
-let id:number
+  interface Route {
+    name : string,
+    route: string,
+    selected: boolean,
+    id: number
+  }
 
-export default defineComponent({
-  data(){
-    return {
-      navOpen:false,
-      mobile: true,
-      routes:[
-        {name:'Start', route:'/', selected:false, id:id++},
-        {name:'Profil', route:'/account', selected:false, id:id++},
-        {name:'Impressum', route:'/impressum', selected:false, id:id++},
-      ]
-    }
-  },
-  methods:{
-    onResize(){
-      if(window.innerWidth <= 1024){
-        this.mobile = true
+  let id: number = 0;
+  let navOpen: Ref<boolean> = ref(false);
+  let mobile: Ref<boolean> = ref(false);
+  let routes: Ref<Array<Route>> = ref([
+    {name:'Start', route:'/', selected:false, id:id++},
+    {name:'Profil', route:'/account', selected:false, id:id++},
+    {name:'Impressum', route:'/impressum', selected:false, id:id++},
+  ]);
+
+  const route = useRoute();
+
+  watch(() => route.name, async changeNavigation => {
+    for (let index = 0; index < routes.value.length; index++) {
+      const element = routes.value[index];
+      if(element.name === route.name){
+        routes.value[index].selected = true
       }else{
-        this.mobile = false
+        routes.value[index].selected = false
       }
     }
-  },
-  watch:{
-    $route(){
-      for (let index = 0; index < this.routes.length; index++) {
-        const element = this.routes[index];
-        if(element.name === this.$route.name){
-          this.routes[index].selected = true
-        }else{
-          this.routes[index].selected = false
-        }
-      }
-    },
-  },
-  created(){
-    window.addEventListener("resize", this.onResize);
+  })
+
+  function onResize(){
     if(window.innerWidth <= 1024){
-        this.mobile = true
-      }else{
-        this.mobile = false
-      }
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.onResize)
-  },
-})
+      mobile.value = true
+    }else{
+      mobile.value = false
+    }
+  }
+
+  onMounted(() => {
+    window.addEventListener("resize", onResize);
+    onResize();
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', onResize);
+  })
 
 </script>
 

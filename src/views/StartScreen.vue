@@ -1,21 +1,9 @@
-<script lang="ts">
+<script setup lang="ts">
 
 import { defineComponent } from "vue";
 import HeroSection from "../components/start_page/hero_section.vue"
 import GoalsSection from "../components/start_page/goals_section.vue"
 import Footer from "../components/footer.vue"
-
-export default defineComponent({
-    data(){
-
-    },
-    components:{
-        HeroSection,
-        GoalsSection,
-        Footer
-    }
-})
-
 </script>
 
 

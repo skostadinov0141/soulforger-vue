@@ -1,32 +1,35 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { inject, onMounted } from 'vue';
 import axios from 'axios';
+import type { VueCookies } from 'vue-cookies';
+import { useRouter } from 'vue-router';
 
+const $cookies = inject<VueCookies>('$cookies');
 
-    export default defineComponent({
-        async mounted(){
-            if(this.$cookies.get('apiToken') === null){
-                this.$router.push('/account/login');
-            }else{
-                axios
-                    .get(
-                        (this as any).$apiHost + '/user_auth/get_user_via_token',
-                        {
-                            headers:{
-                                accept:'application/json',
-                                Authorization: this.$cookies.get('apiToken')
-                            }
-                        }
-                    )
-                    .then(response => {
-                        this.$router.push('/account');
-                    })
-                    .catch(error => {
-                        this.$router.push('/account/login');
-                    })
-            }
-        }
-    })
+const router = useRouter();
+
+onMounted(() => {
+    if($cookies?.get('apiToken') === null){
+        router.push('/account/login');
+    }else{
+        axios
+            .get(
+                (this as any).$apiHost + '/user_auth/get_user_via_token',
+                {
+                    headers:{
+                        accept:'application/json',
+                        Authorization: $cookies?.get('apiToken')
+                    }
+                }
+            )
+            .then(response => {
+                router.push('/account');
+            })
+            .catch(error => {
+                router.push('/account/login');
+            })
+    }
+})
 
 </script>
 

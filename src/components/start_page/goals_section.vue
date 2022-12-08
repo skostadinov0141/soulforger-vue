@@ -1,13 +1,4 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import PageSplitter from "./page_splitter.vue"
-
-
-export default defineComponent({
-    components:{
-        PageSplitter
-    }
-})
+<script setup lang="ts">
 
 </script>
 
