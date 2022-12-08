@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import PageSplitter from "./page_splitter.vue"
 </script>
 
 

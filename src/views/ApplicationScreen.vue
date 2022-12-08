@@ -5,6 +5,7 @@ import type { VueCookies } from 'vue-cookies';
 import { useRouter } from 'vue-router';
 
 const $cookies = inject<VueCookies>('$cookies');
+const $apiHost = inject<string>('apiHost')
 
 const router = useRouter();
 
@@ -14,7 +15,7 @@ onMounted(() => {
     }else{
         axios
             .get(
-                (this as any).$apiHost + '/user_auth/get_user_via_token',
+                $apiHost + '/user_auth/get_user_via_token',
                 {
                     headers:{
                         accept:'application/json',
@@ -23,9 +24,11 @@ onMounted(() => {
                 }
             )
             .then(response => {
+                console.log(response.data);
                 router.push('/account');
             })
             .catch(error => {
+                console.log(error);
                 router.push('/account/login');
             })
     }
