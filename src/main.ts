@@ -8,7 +8,6 @@ import './assets/main.css'
 const app = createApp(App)
 
 app.provide('apiHost','http://127.0.0.1:8000')
-app.provide('showNavigation', true)
 
 app.use(VueCookies)
 app.use(router)
