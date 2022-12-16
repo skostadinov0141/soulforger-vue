@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import StartScreen from '@/views/StartScreen.vue'
 import ImpressumScreen from '@/views/ImpressumScreen.vue'
-import ApplicationScreen from '@/views/ApplicationScreen.vue'
+import AccountScreen from '@/views/AccountScreen.vue'
 import LoginScreen from '@/views/LoginScreen.vue'
 
 const router = createRouter({
@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: '/account',
       name: 'Profil',
-      component: ApplicationScreen
+      component: AccountScreen
     },
     {
       path: '/account/login',

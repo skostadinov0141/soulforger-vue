@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios';
-import { inject, ref, watch, type Ref } from 'vue';
+import { inject, onMounted, ref, watch, type Ref } from 'vue';
 
     interface Props {
         placeholder?: string,
@@ -8,6 +8,12 @@ import { inject, ref, watch, type Ref } from 'vue';
         label?: string,
         autocomplete?: string,
         spellcheck?: boolean,
+        apiVerification?: boolean,
+    }
+
+    interface Error {
+        content: string,
+        wasFound: boolean,
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -15,25 +21,61 @@ import { inject, ref, watch, type Ref } from 'vue';
         label: 'Label',
         autocomplete: 'off',
         spellcheck: false,
+        apiVerification: false
     })
+
+    const emit = defineEmits<{
+        (e:'update-input', input:string):void,
+    }>()
 
     let input: Ref<string> = ref('');
     let wasFocused: Ref<boolean> = ref(false);
     let hasError: Ref<boolean> = ref(false);
+    let errors: Ref<Array<Error>> = ref([
+        {content:'Test', wasFound:false}
+    ])
     let apiHost = inject('apiHost');
 
     function validateField(){
         if(props.inputType === 'username' && input.value !== ''){
             axios
-                .get(`${apiHost}/user_auth/check_username_availability/"${input.value}"`,
+                .get(`${apiHost}/user_auth/check_username_availability/${encodeURIComponent(input.value)}`,
                 {
                     headers:{
                         accept: 'application/json'
                     }
                 })
                 .then((response) => {
-                    console.log(response.data);
+                    console.log(response)
                     hasError.value = !response.data.result;
+                    errors.value.forEach((element : Error) => {
+                        element.wasFound = false;
+                    });
+                    response.data.details.forEach((element : number) => {
+                        errors.value[element].wasFound = true;
+                    });
+                })
+                .catch((error) => {
+
+                })
+        }
+        else if(props.inputType === 'password' && input.value !== ''){
+            axios
+                .get(`${apiHost}/user_auth/check_username_availability/${encodeURIComponent(input.value)}`,
+                {
+                    headers:{
+                        accept: 'application/json'
+                    }
+                })
+                .then((response) => {
+                    console.log(response)
+                    hasError.value = !response.data.result;
+                    errors.value.forEach((element : Error) => {
+                        element.wasFound = false;
+                    });
+                    response.data.details.forEach((element : number) => {
+                        errors.value[element].wasFound = true;
+                    });
                 })
                 .catch((error) => {
 
@@ -44,8 +86,43 @@ import { inject, ref, watch, type Ref } from 'vue';
     function setBorder(){
         if(wasFocused.value && hasError.value && input.value !== ''){return 'error';}
         if(wasFocused.value && !hasError.value && input.value !== ''){return 'valid';}
+        if(wasFocused.value && input.value === ''){
+            errors.value.forEach((element : Error) => {
+                element.wasFound = false;
+            });
+        }
         return '';
     }
+
+    onMounted(() => {
+        if(props.inputType === 'username'){
+            errors.value = [
+                {content:'Benutzername schon vergeben.', wasFound:false},
+                {content:'Der Benutzername ist zu kurz. (min. 8)', wasFound:false},
+                {content:'Der Benutzername ist zu lang. (max. 20)', wasFound:false},
+                {content:'Der Benutzername darf nur a-z, A-Z, 0-9, ".", "_" und "-" beinhalten.', wasFound:false},
+            ]
+        }
+        else if(props.inputType === 'email'){
+            errors.value = [
+                {content:'E-Mail ist schon vergeben.', wasFound:false},
+                {content:'Die E-Mail Addresse ist falsch.', wasFound:false},
+            ]
+        }
+        else{
+            errors.value = [
+                {content:'Das Passwort muss mind. einen Kleinbuchstaben beinhalten.', wasFound:false},
+                {content:'Das Passwort muss mind. einen Großbuchstaben beinhalten.', wasFound:false},
+                {content:'Das Passwort muss mind. eine Zahl beinhalten.', wasFound:false},
+                {content:'Das Passwort muss mind. ein Sonderzeichen beinhalten.', wasFound:false},
+                {content:'Das Passwort muss mind. 10 Zeichen lang sein.', wasFound:false},
+            ]
+        }
+    })
+
+    watch(input, (newInput: string) => {
+        emit('update-input', newInput);
+    })
 
 </script>
 
@@ -59,17 +136,36 @@ import { inject, ref, watch, type Ref } from 'vue';
         :autocomplete="props.autocomplete"
         :type="props.inputType" 
         class="login-input"
-        :class="setBorder()"
+        :class="apiVerification ? setBorder() : undefined"
         :spellcheck="props.spellcheck" 
         :placeholder="props.placeholder"
         v-model="input"
-        @blur="validateField()"
+        @blur="apiVerification ? validateField() : undefined"
         @focus="wasFocused = true">
+        <ul class="error-list" v-if="apiVerification">
+            <li
+            v-for="e in errors"
+            :class="e.wasFound ? 'error-list-element-error' : ''">{{e.content}}</li>
+        </ul>
     </div>
 </template>
 
 
 <style scoped>
+
+    .error-list-element-error{
+        color: #9D5858;
+    }
+
+    .error-list{
+        padding-top: 8px;
+        padding-left: 8px;
+        display: flex;
+        flex-direction: column;
+        color: #CACECA;
+        list-style-position: inside;
+        font-size: 12px;
+    }
 
     .input-label{
         margin-right: auto;
@@ -97,7 +193,7 @@ import { inject, ref, watch, type Ref } from 'vue';
         -webkit-box-align: stretch;
             -ms-flex-align: stretch;
                 align-items: stretch;
-        width: 50%;
+        width: 100%;
     }
 
     .login-input{

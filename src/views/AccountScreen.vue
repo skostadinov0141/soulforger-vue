@@ -5,7 +5,7 @@ import type { VueCookies } from 'vue-cookies';
 import { useRouter } from 'vue-router';
 
 const $cookies = inject<VueCookies>('$cookies');
-const $apiHost = inject<string>('apiHost')
+const $apiHost = inject<string>('apiHost');
 
 const router = useRouter();
 
