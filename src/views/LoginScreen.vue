@@ -11,7 +11,7 @@ let password: Ref<string> = ref('');
 
 let loading: Ref<boolean> = ref(false);
 
-let error: Ref<string> = ref('');
+let error: Ref<Array<string>> = ref([]);
 
 let apiHost : string = inject('apiHost') as string;
 const $cookies = inject<VueCookies>('$cookies');
@@ -21,7 +21,7 @@ const router = useRouter();
 function sendLoginRequest(){
     if(password.value !== '' && username.value !== ''){
 
-        error.value = '';
+        error.value = [];
 
         let requestUrl = new URL(apiHost + '/user_auth/token')
 
@@ -48,7 +48,7 @@ function sendLoginRequest(){
                 router.push('/account')
             })
             .catch((apiError) => {
-                error.value = 'Benutzername und/oder Passwort sind falsch!';
+                error.value.push('Benutzername und/oder Passwort sind falsch!');
                 loading.value = false;
             });
     }
@@ -67,25 +67,30 @@ function sendLoginRequest(){
             v-model="username"
             input-type="username"
             label="Benutzername"
-            :error="error === '' ? false : true"/>
+            :error="error.length === 0 ? false : true"/>
             <div style="height: 24px;"></div>
             <InputField 
             v-model="password"
             input-type="password"
             label="Passwort"
-            :error="error === '' ? false : true"/>
-            <div style="height: 24px;"></div>
+            :error="error.length === 0 ? false : true"/>
+            <div style="height: 24px;" v-if="error.length !== 0"></div>
             <div class="error-container"
-            v-if="error !== ''">
+            v-if="error.length !== 0">
                 <p class="error-content">
-                    {{ error }}
+                    Fehler gefunden:
                 </p>
+                <ul>
+                    <li v-for="e in error" class="error-content">
+                        {{e}}
+                    </li>
+                </ul>
             </div>
             <div style="height: 24px;"></div>
             <a @click="">Passwort vergessen?</a>
             <div style="height: 24px;"></div>
             <div class="buttons-container">
-                <Button :loading="false">Bewerben</Button>
+                <Button :loading="false" @clicked="router.push('/account/apply')">Bewerben</Button>
                 <div style="width: 16px;"></div>
                 <Button :loading="loading" @clicked="loading ? undefined : sendLoginRequest()">Einloggen</Button>
             </div>
@@ -98,9 +103,9 @@ function sendLoginRequest(){
 <style scoped>
 
     .error-container{
-        background-color: #1F0A0A;
+        background-color: rgba(255,0,0,0.025);
         border: 1px solid rgba(255, 0, 0, 0.3);
-        padding: 8px;
+        padding: 8px 16px;
         border-radius: 5px;
     }
 
@@ -108,7 +113,8 @@ function sendLoginRequest(){
         font-family: Roboto;
         font-size: 14px;
         font-weight: 600;
-        color: #9D5858;
+        color: #ce5656;
+        list-style-position: inside;
     }
 
     a{

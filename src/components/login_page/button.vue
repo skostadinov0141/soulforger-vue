@@ -50,7 +50,7 @@ const emit = defineEmits<{
         font-weight: 600;
         color: #CACECA;
         border-radius: 5px;
-        background-color: #764686;
+        background-color: rgb(var(--accents-shade-0));
         border: none;
         transition: 200ms;
     }
@@ -67,13 +67,13 @@ const emit = defineEmits<{
         font-weight: 600;
         color: #CACECA;
         border-radius: 5px;
-        background-color: #764686;
+        background-color: rgb(var(--accents-shade-0));
         border: none;
         transition: 200ms;
     }
 
     button:hover{
-        background-color: #8D54A0;
+        background-color: rgb(var(--accents-shade-2));
     }
 
 </style>
