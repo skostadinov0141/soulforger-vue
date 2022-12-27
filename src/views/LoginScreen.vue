@@ -19,9 +19,6 @@ const router = useRouter();
 
 
 function sendLoginRequest(){
-
-
-
     if(password.value !== '' && username.value !== ''){
 
         error.value = '';
@@ -66,18 +63,20 @@ function sendLoginRequest(){
         <div class="login-fields">
             <h3>Einloggen</h3>
             <div style="height: 24px;"></div>
-            <InputField input-type="username"
+            <InputField 
+            v-model="username"
+            input-type="username"
             label="Benutzername"
-            @update-input="(newInput) => username = newInput"
-            :api-verification="false"/>
+            :error="error === '' ? false : true"/>
             <div style="height: 24px;"></div>
-            <InputField input-type="password"
+            <InputField 
+            v-model="password"
+            input-type="password"
             label="Passwort"
-            @update-input="(newInput) => password = newInput"
-            :api-verification="false"/>
+            :error="error === '' ? false : true"/>
+            <div style="height: 24px;"></div>
             <div class="error-container"
             v-if="error !== ''">
-                <div style="height: 24px;"></div>
                 <p class="error-content">
                     {{ error }}
                 </p>
@@ -97,6 +96,13 @@ function sendLoginRequest(){
 
 
 <style scoped>
+
+    .error-container{
+        background-color: #1F0A0A;
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        padding: 8px;
+        border-radius: 5px;
+    }
 
     .error-content{
         font-family: Roboto;

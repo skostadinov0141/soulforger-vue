@@ -1,3 +1,17 @@
+
+:root{
+  --bg-shade-0: 10, 20, 31;
+  --bg-shade-1: 15, 30, 46;
+  --bg-shade-2: 20, 40, 62;
+  --bg-shade-3: 25, 50, 77;
+  --outline-shade-0: 147, 182, 220;
+  --text-shade-0: 181, 186, 181;
+  --text-shade-1: 202, 206, 202;
+  --accents-shade-0: 130, 77, 147;
+  --accents-shade-1: 141, 84, 160;
+  --accents-shade-2: 152, 95, 171;
+}
+
 *,
 *::before,
 *::after {

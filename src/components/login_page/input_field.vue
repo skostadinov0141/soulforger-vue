@@ -3,95 +3,30 @@ import axios from 'axios';
 import { inject, onMounted, ref, watch, type Ref } from 'vue';
 
     interface Props {
+        modelValue?: string,
         placeholder?: string,
         inputType: string,
         label?: string,
         autocomplete?: string,
         spellcheck?: boolean,
-        apiVerification?: boolean,
+        error?: boolean
     }
 
     const props = withDefaults(defineProps<Props>(), {
+        error: false,
         placeholder: 'Hier schreiben...',
         label: 'Label',
         autocomplete: 'off',
         spellcheck: false,
-        apiVerification: false
-    })
+    });
 
     const emit = defineEmits<{
-        (e:'update-input', input:string):void,
-    }>()
-
-    let input: Ref<string> = ref('');
-    // let wasFocused: Ref<boolean> = ref(false);
-    // let hasError: Ref<boolean> = ref(false);
-    // let errors: Ref<Array<Error>> = ref([
-    //     {content:'Test', wasFound:false}
-    // ])
-    // let apiHost = inject('apiHost');
-
-    // function validateField(){
-    //     if(props.inputType === 'username' && input.value !== ''){
-    //         axios
-    //             .get(`${apiHost}/user_auth/check_username_availability/${encodeURIComponent(input.value)}`,
-    //             {
-    //                 headers:{
-    //                     accept: 'application/json'
-    //                 }
-    //             })
-    //             .then((response) => {
-    //                 console.log(response)
-    //                 hasError.value = !response.data.result;
-    //                 errors.value.forEach((element : Error) => {
-    //                     element.wasFound = false;
-    //                 });
-    //                 response.data.details.forEach((element : number) => {
-    //                     errors.value[element].wasFound = true;
-    //                 });
-    //             })
-    //             .catch((error) => {
-
-    //             })
-    //     }
-    //     else if(props.inputType === 'password' && input.value !== ''){
-    //         axios
-    //             .get(`${apiHost}/user_auth/check_username_availability/${encodeURIComponent(input.value)}`,
-    //             {
-    //                 headers:{
-    //                     accept: 'application/json'
-    //                 }
-    //             })
-    //             .then((response) => {
-    //                 console.log(response)
-    //                 hasError.value = !response.data.result;
-    //                 errors.value.forEach((element : Error) => {
-    //                     element.wasFound = false;
-    //                 });
-    //                 response.data.details.forEach((element : number) => {
-    //                     errors.value[element].wasFound = true;
-    //                 });
-    //             })
-    //             .catch((error) => {
-
-    //             })
-    //     }
-    // }
-
-    // function setBorder(){
-    //     if(wasFocused.value && hasError.value && input.value !== ''){return 'error';}
-    //     if(wasFocused.value && !hasError.value && input.value !== ''){return 'valid';}
-    //     if(wasFocused.value && input.value === ''){
-    //         errors.value.forEach((element : Error) => {
-    //             element.wasFound = false;
-    //         });
-    //     }
-    //     return '';
-    // }
+        (e:'update:modelValue', input:string):void,
+    }>();
 
     onMounted(() => {
         
-    })
+    });
 
 </script>
 
@@ -100,14 +35,16 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
     <div class="input-container">
         <label :for="props.inputType" class="input-label">{{ props.label }}</label>
         <input 
+        :value="modelValue"
+        @input="emit('update:modelValue', $event.target.value)"
         :id="props.inputType"
         :name="props.inputType" 
         :autocomplete="props.autocomplete"
         :type="props.inputType" 
         class="login-input"
+        :class="error ? 'error' : ''"
         :spellcheck="props.spellcheck" 
         :placeholder="props.placeholder"
-        v-model="input"
         @blur="">
     </div>
 </template>
@@ -123,11 +60,11 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
         font-weight: 400;
         text-transform: uppercase;
         color: #CACECA;
-        background-color: #14293D;
+        background-color: rgb(var(--bg-shade-2));
         border-radius: 5px 5px 0px 0px;
-        border-top: solid 1px rgba(147, 182, 220, 0.1);
-        border-left: solid 1px rgba(147, 182, 220, 0.1);
-        border-right: solid 1px rgba(147, 182, 220, 0.1);
+        border-top: solid 1px rgba(var(--outline-shade-0), 0.1);
+        border-left: solid 1px rgba(var(--outline-shade-0), 0.1);
+        border-right: solid 1px rgba(var(--outline-shade-0), 0.1);
     }
 
     .input-container{
@@ -152,14 +89,58 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
         font-size: 14px;
         font-weight: 400;
         color: #CACECA;
-        background-color: #0F1E2E;
+        background-color: rgb(var(--bg-shade-1));
         border-radius: 0px 5px 5px 5px;
         -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
         -webkit-transition: 250ms;
         -o-transition: 250ms;
         transition: 250ms;
-        border: solid 1px rgba(147, 182, 220, 0.1);
+        border: solid 1px rgba(var(--outline-shade-0), 0.1);
+        
+        -webkit-box-sizing: border-box;
+        
+                box-sizing: border-box;
+    }
+
+    input:-webkit-autofill{
+        border: 0;
+        outline: none;
+        padding: 10px 16px;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 400;
+        color: #CACECA;
+        background-color: rgb(var(--bg-shade-1));
+        border-radius: 0px 5px 5px 5px;
+        -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        -webkit-transition: 250ms;
+        -o-transition: 250ms;
+        transition: 250ms;
+        border: solid 1px rgba(var(--outline-shade-0), 0.1);
+        
+        -webkit-box-sizing: border-box;
+        
+                box-sizing: border-box;
+    }
+
+    input:autofill{
+        border: 0;
+        outline: none;
+        padding: 10px 16px;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 400;
+        color: #CACECA;
+        background-color: rgb(var(--bg-shade-1));
+        border-radius: 0px 5px 5px 5px;
+        -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        -webkit-transition: 250ms;
+        -o-transition: 250ms;
+        transition: 250ms;
+        border: solid 1px rgba(var(--outline-shade-0), 0.1);
         
         -webkit-box-sizing: border-box;
         
@@ -177,7 +158,7 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
     .login-input:focus{
         -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
                 box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-        border: solid 1px rgba(147, 182, 220, 0.3);
+        border: solid 1px rgba(var(--outline-shade-0), 0.3);
         background-color: #0F1E2E;
     }
 
