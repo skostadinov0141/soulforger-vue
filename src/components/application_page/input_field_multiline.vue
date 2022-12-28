@@ -42,7 +42,8 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
 <template>
     <div class="input-container">
         <label :for="props.inputType" class="input-label">{{ props.label }}</label>
-        <input 
+        <textarea 
+        rows="8"
         :value="modelValue"
         @input="emit('update:modelValue', $event.target.value)"
         :id="props.id === '' ? props.inputType : props.id"
@@ -53,7 +54,7 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
         :class="getValidationStatus()"
         :spellcheck="props.spellcheck" 
         :placeholder="props.placeholder"
-        @blur="emit('validate')">
+        @blur="emit('validate')"/>
     </div>
 </template>
 
@@ -90,6 +91,7 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
     }
 
     .login-input{
+        resize: none;
         border: 0;
         outline: none;
         padding: 10px 16px;
