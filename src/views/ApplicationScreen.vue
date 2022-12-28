@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import InputField from '@/components/application_page/input_field.vue';
 </script>
 
 
@@ -7,7 +7,17 @@
 <template>
 <div class="application-container">
     <div class="application-active-container">
+        <div class="application-active-half">
+            <InputField
+            input-type="username"
+            :validation-status="0"
+            label="Benutzername"
+            />
+        </div>
+        <div style="width: 16px;"/>
+        <div class="application-active-half">
 
+        </div>
     </div>
 </div>
 </template>
@@ -16,7 +26,14 @@
 
 <style scoped>
 
+    .application-active-half{
+        flex: 1;
+    }
+
     .application-active-container{
+        padding: 16px;
+        align-items: stretch;
+        display: flex;
         margin-top: 8vh;
         min-height: 80vh;
         min-width: 80vw;
