@@ -100,50 +100,6 @@ import { inject, onMounted, ref, watch, type Ref } from 'vue';
         font-weight: 400;
         color: #CACECA;
         background-color: rgb(var(--bg-shade-1));
-        border-radius: 0px 5px 0px 0px;
-        -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-        -webkit-transition: 250ms;
-        -o-transition: 250ms;
-        transition: 250ms;
-        border: solid 1px rgba(var(--outline-shade-0), 0.1);
-        
-        -webkit-box-sizing: border-box;
-        
-                box-sizing: border-box;
-    }
-
-    input:-webkit-autofill{
-        border: 0;
-        outline: none;
-        padding: 10px 16px;
-        font-family: Roboto;
-        font-size: 14px;
-        font-weight: 400;
-        color: #CACECA;
-        background-color: rgb(var(--bg-shade-1));
-        border-radius: 0px 5px 5px 5px;
-        -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-        -webkit-transition: 250ms;
-        -o-transition: 250ms;
-        transition: 250ms;
-        border: solid 1px rgba(var(--outline-shade-0), 0.1);
-        
-        -webkit-box-sizing: border-box;
-        
-                box-sizing: border-box;
-    }
-
-    input:autofill{
-        border: 0;
-        outline: none;
-        padding: 10px 16px;
-        font-family: Roboto;
-        font-size: 14px;
-        font-weight: 400;
-        color: #CACECA;
-        background-color: rgb(var(--bg-shade-1));
         border-radius: 0px 5px 5px 5px;
         -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);

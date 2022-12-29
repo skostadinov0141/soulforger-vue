@@ -3,6 +3,7 @@ import InputField from '@/components/application_page/input_field.vue';
 import InputFieldMultiline from '@/components/application_page/input_field_multiline.vue';
 import ValidationList from '@/components/application_page/validation_list.vue';
 import AGB from '@/components/application_page/agb_viewer.vue'
+import RadioButton from '@/components/application_page/radio_button.vue';
 import axios from 'axios';
 import { inject, ref, type Ref } from 'vue';
 import type { VueCookies } from 'vue-cookies';
@@ -185,6 +186,8 @@ function validatePasswordConfirmation(){
             label="Warum bewirbst du dich?"/>
             <div style="height: 16px;"/>
             <AGB/>
+            <div style="height: 16px;"/>
+            <RadioButton></RadioButton>
         </div>
     </div>
 </div>
