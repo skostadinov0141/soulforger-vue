@@ -50,6 +50,21 @@ let passwordConfirmationValidations: Ref<Array<ValidationElement>> = ref([
     {content:'Passwort und Passwortbestätigung stimmen überein.', valid:true},
 ]);
 
+let accountTypeRadioGroup: Ref<Array<boolean>> = ref([
+    true,
+    false,
+]);
+
+function changeRadioGroupState(current:number){
+    for (let i = 0; i < accountTypeRadioGroup.value.length; i++) {
+        if(i === current){
+            accountTypeRadioGroup.value[i] = true;
+        }else{
+            accountTypeRadioGroup.value[i] = false;
+        }
+    }
+    console.log(accountTypeRadioGroup.value);
+}
 
 function validateUsername(){
     if(username.value === ''){
@@ -187,7 +202,20 @@ function validatePasswordConfirmation(){
             <div style="height: 16px;"/>
             <AGB/>
             <div style="height: 16px;"/>
-            <RadioButton></RadioButton>
+            <div class="radio-group">
+                <RadioButton
+                bound="left"
+                label="Tester"
+                :group-i-d="0"
+                :selected="accountTypeRadioGroup[0]"
+                @selected="(val:number) => changeRadioGroupState(val)"></RadioButton>
+                <RadioButton
+                bound="right"
+                label="Admin"
+                :group-i-d="1"
+                :selected="accountTypeRadioGroup[1]"
+                @selected="(val:number) => changeRadioGroupState(val)"></RadioButton>
+            </div>
         </div>
     </div>
 </div>
@@ -196,6 +224,10 @@ function validatePasswordConfirmation(){
 
 
 <style scoped>
+
+    .radio-group{
+        display: flex;
+    }
 
     .application-active-half{
         flex: 1;

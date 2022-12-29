@@ -69,9 +69,6 @@
         font-weight: 700;
     }
 
-    .agb-active-container{
-    }
-
     .agb-container{
         
         height: 300px;
