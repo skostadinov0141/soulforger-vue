@@ -165,7 +165,7 @@ function validatePasswordConfirmation(){
             @validate="validateUsername()"
             />
             <ValidationList :elements="usernameValidations"/>
-            <div style="flex:1;"/>
+            <div style="flex:1; min-height: 16px;"/>
             <InputField
             input-type="email"
             :validation-status="emailHasError ? 1 : 0"
@@ -174,7 +174,7 @@ function validatePasswordConfirmation(){
             @validate="validateEmail()"
             />
             <ValidationList :elements="emailValidations"/>
-            <div style="flex:1;"/>
+            <div style="flex:1; min-height: 16px;"/>
             <InputField
             input-type="password"
             :validation-status="passwordHasError ? 1 : 0"
@@ -183,7 +183,7 @@ function validatePasswordConfirmation(){
             @validate="validatePassword()"
             />
             <ValidationList :elements="passwordValidations"/>
-            <div style="flex:1;"/>
+            <div style="flex:1; min-height: 16px;"/>
             <InputField
             input-type="password"
             id="password_confirm"
@@ -199,10 +199,9 @@ function validatePasswordConfirmation(){
             <InputFieldMultiline
             input-type="text"
             label="Warum bewirbst du dich?"/>
-            <div style="height: 16px;"/>
-            <AGB/>
-            <div style="height: 16px;"/>
-            <div class="radio-group">
+            <div style="flex: 1; min-height: 16px;"/>
+            <div class="horizontal-group">
+                <h5>Ich bewerbe mich als:</h5>
                 <RadioButton
                 bound="left"
                 label="Tester"
@@ -216,6 +215,17 @@ function validatePasswordConfirmation(){
                 :selected="accountTypeRadioGroup[1]"
                 @selected="(val:number) => changeRadioGroupState(val)"></RadioButton>
             </div>
+            <div style="flex: 1; min-height: 16px;"/>
+            <AGB/>
+            <div style="flex: 1; min-height: 16px;"/>
+            <div class="horizontal-group">
+                <input type="checkbox" id="eula-accept">
+                <label for="eula-accept">Ich habe die AGBs gelesen und bin damit einverstanden.</label>
+                <div style="flex: 1; min-width: 16px;"/>
+                <button>
+                    Bewerben
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -225,8 +235,50 @@ function validatePasswordConfirmation(){
 
 <style scoped>
 
-    .radio-group{
+    button{
+        padding: 8px 32px;
+        border-radius: 5px;
+        border: 0;
+        font-family: Roboto;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 700;
+        color: rgb(var(--text-shade-0));
+        background-color: rgb(var(--accents-shade-0));
+        transition: 300ms;
+    }
+
+    button:hover{
+        background-color: rgb(var(--accents-shade-2));
+        cursor: pointer;
+    }
+
+    label{
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 700;
+        color: rgb(var(--text-shade-0));
+        margin-left: 8px;
+    }
+
+    input[type="checkbox"]{
+        margin-top: -4px;
+        vertical-align: middle;
+        margin-left: 16px;
+    }
+
+    h5{
+        font-family: Roboto;
+        font-weight: 500;
+        font-size: 14px;
+        color: rgb(var(--text-shade-0));
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+
+    .horizontal-group{
         display: flex;
+        align-items: center;
     }
 
     .application-active-half{
@@ -241,7 +293,6 @@ function validatePasswordConfirmation(){
         display: flex;
         margin-top: 8vh;
         width: 80vw;
-        height: 72vh;
         background-color: rgba(var(--bg-shade-0), 0.3);
         backdrop-filter: blur(50px);
         border-radius: 5px;

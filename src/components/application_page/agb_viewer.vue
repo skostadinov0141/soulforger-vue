@@ -46,16 +46,19 @@
     h1{
         font-weight: 800;
         font-size: 24px;
+        margin-top: 8px;
     }
     
     h2{
         font-weight: 700;
         font-size: 16px;
+        margin-top: 8px;
     }
 
     h3{
         font-weight: 600;
         font-size: 16px;
+        margin-top: 8px;
     }
 
     p{
@@ -69,9 +72,17 @@
         font-weight: 700;
     }
 
+    li{
+        padding-left: 4px;
+    }
+
+    ul{
+        padding-left: 24px;
+    }
+
     .agb-container{
         
-        height: 300px;
+        height: 350px;
         overflow: auto;
         padding: 16px;
         border-radius: 5px;
