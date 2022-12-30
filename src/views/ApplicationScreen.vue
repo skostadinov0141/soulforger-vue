@@ -55,6 +55,10 @@ let accountTypeRadioGroup: Ref<Array<boolean>> = ref([
     false,
 ]);
 
+let applicationContent : Ref<string> = ref('');
+
+let agbAccept: Ref<boolean> = ref(false);
+
 function changeRadioGroupState(current:number){
     for (let i = 0; i < accountTypeRadioGroup.value.length; i++) {
         if(i === current){
@@ -149,6 +153,47 @@ function validatePasswordConfirmation(){
     passwordConfirmationHasError.value = false;
 }
 
+function sendApplicationRequest(){
+    validateUsername();
+    validateEmail();
+    validatePassword();
+    validatePasswordConfirmation();
+    if(
+        usernameHasError.value === false &&
+        emailHasError.value === false &&
+        passwordHasError.value === false &&
+        passwordConfirmationHasError.value === false &&
+        agbAccept.value === true
+    ){
+        console.log('request sent!!!');
+        let accountType: string = '';
+        if(accountTypeRadioGroup.value[0]){
+            accountType = 'account_application_tester';
+        }else{
+            accountType = 'account_application_admin';
+        }
+        axios
+        .post(`${apiHost}/user_auth/${accountType}`,
+        {
+            username : username.value,
+            email : email.value,
+            password : password.value,
+            application_content : applicationContent.value
+        },
+        {
+            headers:{
+                'accept' : 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(
+            (response) => {
+                console.log(response);
+            } 
+        );
+    }
+}
+
 </script>
 
 
@@ -160,7 +205,7 @@ function validatePasswordConfirmation(){
             <InputField
             input-type="username"
             :validation-status="usernameHasError ? 1 : 0"
-            label="Benutzername"
+            label="*  Benutzername"
             v-model="username"
             @validate="validateUsername()"
             />
@@ -169,7 +214,7 @@ function validatePasswordConfirmation(){
             <InputField
             input-type="email"
             :validation-status="emailHasError ? 1 : 0"
-            label="E-Mail"
+            label="*  E-Mail"
             v-model="email"
             @validate="validateEmail()"
             />
@@ -178,7 +223,7 @@ function validatePasswordConfirmation(){
             <InputField
             input-type="password"
             :validation-status="passwordHasError ? 1 : 0"
-            label="Passwort"
+            label="*  Passwort"
             v-model="password"
             @validate="validatePassword()"
             />
@@ -188,17 +233,21 @@ function validatePasswordConfirmation(){
             input-type="password"
             id="password_confirm"
             :validation-status="passwordConfirmationHasError ? 1 : 0"
-            label="Passwort bestätigen"
+            label="*  Passwort bestätigen"
             v-model="passwordConfirmation"
             @validate="validatePasswordConfirmation()"
             />
             <ValidationList :elements="passwordConfirmationValidations"/>
         </div>
-        <div style="width: 16px;"/>
+        <div style="width: 16px; height: 16px;"/>
         <div class="application-active-half">
             <InputFieldMultiline
+            v-model="applicationContent"
             input-type="text"
-            label="Warum bewirbst du dich?"/>
+            label="Warum bewirbst du dich?"
+            placeholder="Hier schreiben (empfohlene Länge: ~5 Sätze)..."/>
+            <div style="flex: 1; min-height: 16px;"/>
+            <p>* Pflichtfelder</p>
             <div style="flex: 1; min-height: 16px;"/>
             <div class="horizontal-group">
                 <h5>Ich bewerbe mich als:</h5>
@@ -219,10 +268,13 @@ function validatePasswordConfirmation(){
             <AGB/>
             <div style="flex: 1; min-height: 16px;"/>
             <div class="horizontal-group">
-                <input type="checkbox" id="eula-accept">
+                <input type="checkbox" 
+                id="eula-accept"
+                @change="agbAccept = !agbAccept">
                 <label for="eula-accept">Ich habe die AGBs gelesen und bin damit einverstanden.</label>
                 <div style="flex: 1; min-width: 16px;"/>
-                <button>
+                <button
+                @click="sendApplicationRequest()">
                     Bewerben
                 </button>
             </div>
@@ -234,6 +286,44 @@ function validatePasswordConfirmation(){
 
 
 <style scoped>
+
+    @media only screen and (max-width: 1024px){
+        .application-active-container{
+            padding: 16px;
+            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+            width: 80vw;
+            background-color: rgba(var(--bg-shade-0), 0.3);
+            backdrop-filter: blur(50px);
+            border-radius: 5px;
+            border: 1px solid rgba(var(--outline-shade-0), 0.1);
+            box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+        }
+
+        .application-container{
+            padding-top: 8vh;
+            padding-bottom: 8vh;
+            background-image: 
+            linear-gradient(90deg, rgba(0,0,0,0.5) 100%, rgba(0,0,0,0.5) 0%),
+            url('../assets/images/landing_page_background.jpg');
+            background-size: cover;
+            background-position: 50% ;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            min-width: 100vw;
+        }
+    }
+
+    p{
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgb(var(--text-shade-0));
+    }
 
     button{
         padding: 8px 32px;
