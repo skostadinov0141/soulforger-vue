@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import Navbar from './components/header.vue'
+import Navbar from './components/header/header.vue'
 
 </script>
 
