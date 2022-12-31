@@ -8,8 +8,13 @@ interface Route{
   route:string,
   selected:boolean,
   id:number,
-  routeNames:Array<string>
+  routeNames:Array<string>,
+  dropdown?:Array<Route>,
+  hovered?:boolean
 }
+
+const router = useRouter();
+const route = useRoute();
 
 let routes: Ref<Array<Route>> = ref([
   {
@@ -20,13 +25,56 @@ let routes: Ref<Array<Route>> = ref([
     routeNames:['Start']
   },
   {
-    title:'Start',
-    route:'/',
+    title:'Über uns',
+    route:'/impressum',
     selected:true,
-    id:0,
-    routeNames:['Start']
+    id:1,
+    routeNames:['Impressum'],
+    hovered:false,
+    dropdown:[
+      {
+        title:'Über uns',
+        route:'/impressum',
+        selected:true,
+        id:1,
+        routeNames:['Impressum']
+      },
+      {
+        title:'Über uns',
+        route:'/impressum',
+        selected:true,
+        id:1,
+        routeNames:['Impressum']
+      },
+      {
+        title:'Über uns',
+        route:'/impressum',
+        selected:true,
+        id:1,
+        routeNames:['Impressum']
+      },
+    ]
   },
 ]);
+
+watch(route, (newRoute) => {
+  updateRouteTable();
+})
+
+function updateRouteTable(){
+  for (let i = 0; i < routes.value.length; i++) {
+    const element = routes.value[i];
+    if(element.routeNames.includes(route.name as string)){
+      routes.value[i].selected = true;
+    }else{
+      routes.value[i].selected = false;
+    }
+  }
+}
+
+onMounted(() => {
+  updateRouteTable();
+});
 
 </script>
 
@@ -34,12 +82,35 @@ let routes: Ref<Array<Route>> = ref([
 
 <div class="container">
   <div class="logo">
-    <img src="../assets/images/soulforger_logo_100p.png" alt="logo" class="logo-image">
+    <img src="../../assets/images/soulforger_logo_100p.png" alt="logo" class="logo-image">
   </div>
   <div style="flex:1;"></div>
   <div class="navigation">
     <ul>
-
+      <li 
+      class="nav-button" 
+      v-for="e in routes"
+      :class="e.selected ? 'nav-button-selected' : ''"
+      @click="e.dropdown === undefined ? router.push(e.route) : undefined"
+      @mouseenter="e.hovered !== undefined ? e.hovered = true : undefined"
+      @mouseleave="e.hovered !== undefined ? e.hovered = false : undefined">
+      <p v-if="e.dropdown === undefined">
+        {{ e.title }}
+      </p>
+      <p v-else-if="e.dropdown !== undefined && !e.hovered">
+        {{ e.title }}
+      </p>
+      <ul class="sub-nav-buttons"
+      v-else="">
+        <li 
+        class="sub-nav-button"
+        v-for="se in e.dropdown"
+        :class="e.selected ? 'nav-button-selected' : ''"
+        @click="e.dropdown === undefined ? router.push(e.route) : undefined">
+          {{ e.title }}
+        </li>
+      </ul>
+      </li>
     </ul>
   </div>
   <div style="flex:1;"></div>
@@ -51,6 +122,50 @@ let routes: Ref<Array<Route>> = ref([
 </template>
 
 <style scoped>
+
+.sub-nav-buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-nav-button{
+  height: 50px;
+}
+
+ul{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.nav-button{
+  border-top: 3px solid transparent;
+  margin-bottom: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+  padding: 0px 32px;
+  text-transform: uppercase;
+  color: rgb(var(--text-shade-0));
+  height: 100%;
+  transition: 300ms;
+}
+
+li p{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-button:hover{
+  background-color: rgba(var(--bg-shade-1), 1);
+  cursor: pointer;
+}
+
+.nav-button-selected{
+  border-top: 3px solid rgb(var(--accents-shade-0));
+  font-weight: 600;
+}
 
 .container{
   display: flex;
