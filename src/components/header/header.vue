@@ -138,20 +138,6 @@ ul{
   align-items: center;
 }
 
-.nav-button{
-  border-top: 3px solid transparent;
-  margin-bottom: 3px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  list-style: none;
-  padding: 0px 32px;
-  text-transform: uppercase;
-  color: rgb(var(--text-shade-0));
-  height: 100%;
-  transition: 300ms;
-}
-
 li p{
   font-size: 14px;
   font-weight: 600;
