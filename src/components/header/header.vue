@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router';
+import NavButton from './nav_button.vue';
 
 interface Route{
   title:string,
@@ -30,30 +31,6 @@ let routes: Ref<Array<Route>> = ref([
     selected:true,
     id:1,
     routeNames:['Impressum'],
-    hovered:false,
-    dropdown:[
-      {
-        title:'Über uns',
-        route:'/impressum',
-        selected:true,
-        id:1,
-        routeNames:['Impressum']
-      },
-      {
-        title:'Über uns',
-        route:'/impressum',
-        selected:true,
-        id:1,
-        routeNames:['Impressum']
-      },
-      {
-        title:'Über uns',
-        route:'/impressum',
-        selected:true,
-        id:1,
-        routeNames:['Impressum']
-      },
-    ]
   },
 ]);
 
@@ -86,32 +63,33 @@ onMounted(() => {
   </div>
   <div style="flex:1;"></div>
   <div class="navigation">
-    <ul>
-      <li 
-      class="nav-button" 
-      v-for="e in routes"
-      :class="e.selected ? 'nav-button-selected' : ''"
-      @click="e.dropdown === undefined ? router.push(e.route) : undefined"
-      @mouseenter="e.hovered !== undefined ? e.hovered = true : undefined"
-      @mouseleave="e.hovered !== undefined ? e.hovered = false : undefined">
-      <p v-if="e.dropdown === undefined">
-        {{ e.title }}
-      </p>
-      <p v-else-if="e.dropdown !== undefined && !e.hovered">
-        {{ e.title }}
-      </p>
-      <ul class="sub-nav-buttons"
-      v-else="">
-        <li 
-        class="sub-nav-button"
-        v-for="se in e.dropdown"
-        :class="e.selected ? 'nav-button-selected' : ''"
-        @click="e.dropdown === undefined ? router.push(e.route) : undefined">
-          {{ e.title }}
-        </li>
-      </ul>
-      </li>
-    </ul>
+    <NavButton
+    :route="routes[0]"/>
+    <NavButton
+    :route="routes[1]"
+    :sub-routes="[
+      {
+        title:'Über uns',
+        route:'/impressum',
+        selected:true,
+        id:1,
+        routeNames:['Impressum']
+      },
+      {
+        title:'Über uns',
+        route:'/impressum',
+        selected:true,
+        id:1,
+        routeNames:['Impressum']
+      },
+      {
+        title:'TEST TEST TEST TEST TEST ',
+        route:'/impressum',
+        selected:true,
+        id:1,
+        routeNames:['Impressum']
+      },
+    ]"/>
   </div>
   <div style="flex:1;"></div>
   <div class="account-controls">
@@ -123,34 +101,9 @@ onMounted(() => {
 
 <style scoped>
 
-.sub-nav-buttons{
+.navigation{
   display: flex;
-  flex-direction: column;
-}
 
-.sub-nav-button{
-  height: 50px;
-}
-
-ul{
-  display: flex;
-  height: 100%;
-  align-items: center;
-}
-
-li p{
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.nav-button:hover{
-  background-color: rgba(var(--bg-shade-1), 1);
-  cursor: pointer;
-}
-
-.nav-button-selected{
-  border-top: 3px solid rgb(var(--accents-shade-0));
-  font-weight: 600;
 }
 
 .container{
